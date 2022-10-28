@@ -25,8 +25,12 @@ final class HotelsListVC: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        bind()
+        configure()
+        configureHotelsDataSource()
         configureLayout()
+        
+        bind()
+        showLoadingIndicator()
     }
     
     // MARK: -
@@ -37,12 +41,31 @@ final class HotelsListVC: UICollectionViewController {
         output
             .hotels
             .subscribe { hotels in
-                print(hotels)
+                self.updateData(with: hotels)
             } onError: { _ in }
             .disposed(by: self.disposeBag)
     }
     
+    private func updateData(with items: [HotelViewModel]) {
+        var snapshot = NSDiffableDataSourceSnapshot<HotelSection, HotelViewModel>()
+        
+        snapshot.appendSections([.main])
+        snapshot.appendItems(items, toSection: .main)
+        
+        DispatchQueue.main.async {
+            self.hotelsDataSource.apply(snapshot, animatingDifferences: true)
+            self.dismissLoadingIndicator()
+        }
+    }
+    
     // MARK: -
+    private func configure() {
+        self.title = "Hotels"
+        self.navigationController?.navigationBar.prefersLargeTitles = true
+        
+        self.collectionView.register(HEHotelCVCell.self, forCellWithReuseIdentifier: HEHotelCVCell.cellID)
+    }
+    
     private func configureLayout() {
         hotelsCollectionLayout = UICollectionViewCompositionalLayout(sectionProvider: { section, _ in
             let item = NSCollectionLayoutItem(layoutSize: .init(widthDimension: .fractionalWidth(1),
@@ -58,5 +81,14 @@ final class HotelsListVC: UICollectionViewController {
         })
         
         self.collectionView.setCollectionViewLayout(hotelsCollectionLayout, animated: false)
+    }
+    
+    private func configureHotelsDataSource() {
+        hotelsDataSource = UICollectionViewDiffableDataSource(collectionView: self.collectionView, cellProvider: { collectionView, indexPath, hotelViewModel in
+            
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HEHotelCVCell.cellID, for: indexPath) as? HEHotelCVCell
+            cell?.hotelViewModel = hotelViewModel
+            return cell
+        })
     }
 }

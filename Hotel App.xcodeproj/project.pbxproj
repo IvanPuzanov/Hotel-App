@@ -20,6 +20,9 @@
 		2ACAFC61290C06A700F45B13 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ACAFC60290C06A700F45B13 /* NetworkError.swift */; };
 		2ACAFC63290C084B00F45B13 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ACAFC62290C084B00F45B13 /* AppCoordinator.swift */; };
 		2ACAFC65290C085400F45B13 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ACAFC64290C085400F45B13 /* Coordinator.swift */; };
+		2ACAFC68290C0A2B00F45B13 /* HEHotelCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ACAFC67290C0A2B00F45B13 /* HEHotelCVCell.swift */; };
+		2ACAFC6B290C119000F45B13 /* UILabel + Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ACAFC6A290C119000F45B13 /* UILabel + Ex.swift */; };
+		2ACAFC6D290C11C300F45B13 /* UIViewController + Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ACAFC6C290C11C300F45B13 /* UIViewController + Ex.swift */; };
 		A9C8B509EAB43BC3A3438363 /* Pods_Hotel_App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E2C6B53D624FCC3C038BC55 /* Pods_Hotel_App.framework */; };
 /* End PBXBuildFile section */
 
@@ -40,6 +43,9 @@
 		2ACAFC60290C06A700F45B13 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		2ACAFC62290C084B00F45B13 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		2ACAFC64290C085400F45B13 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
+		2ACAFC67290C0A2B00F45B13 /* HEHotelCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HEHotelCVCell.swift; sourceTree = "<group>"; };
+		2ACAFC6A290C119000F45B13 /* UILabel + Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel + Ex.swift"; sourceTree = "<group>"; };
+		2ACAFC6C290C11C300F45B13 /* UIViewController + Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController + Ex.swift"; sourceTree = "<group>"; };
 		3C656911A9ABF076EE295167 /* Pods-Hotel App.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hotel App.debug.xcconfig"; path = "Target Support Files/Pods-Hotel App/Pods-Hotel App.debug.xcconfig"; sourceTree = "<group>"; };
 		A0659E649A294114A963E71B /* Pods-Hotel App.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hotel App.release.xcconfig"; path = "Target Support Files/Pods-Hotel App/Pods-Hotel App.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -83,6 +89,7 @@
 				2ACAFC4A290C023D00F45B13 /* Model */,
 				2ACAFC4B290C024000F45B13 /* View */,
 				2ACAFC4C290C024300F45B13 /* ViewModel */,
+				2ACAFC69290C117500F45B13 /* Extentions */,
 				2AB7FBB2290C004000C3087A /* Support */,
 				2A1511C1290BFFD8004658C8 /* Info.plist */,
 			);
@@ -110,6 +117,7 @@
 		2ACAFC4B290C024000F45B13 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				2ACAFC66290C0A1200F45B13 /* Cells */,
 				2ACAFC50290C04D000F45B13 /* Controllers */,
 			);
 			path = View;
@@ -157,6 +165,23 @@
 				2ACAFC60290C06A700F45B13 /* NetworkError.swift */,
 			);
 			path = Constants;
+			sourceTree = "<group>";
+		};
+		2ACAFC66290C0A1200F45B13 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				2ACAFC67290C0A2B00F45B13 /* HEHotelCVCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		2ACAFC69290C117500F45B13 /* Extentions */ = {
+			isa = PBXGroup;
+			children = (
+				2ACAFC6A290C119000F45B13 /* UILabel + Ex.swift */,
+				2ACAFC6C290C11C300F45B13 /* UIViewController + Ex.swift */,
+			);
+			path = Extentions;
 			sourceTree = "<group>";
 		};
 		54330EE090C4A5F4F11F2A9D /* Pods */ = {
@@ -309,12 +334,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				2ACAFC54290C053900F45B13 /* HotelsListViewModel.swift in Sources */,
+				2ACAFC6B290C119000F45B13 /* UILabel + Ex.swift in Sources */,
 				2ACAFC4E290C025800F45B13 /* Hotel.swift in Sources */,
 				2ACAFC63290C084B00F45B13 /* AppCoordinator.swift in Sources */,
 				2ACAFC52290C04E500F45B13 /* HotelsListVC.swift in Sources */,
+				2ACAFC68290C0A2B00F45B13 /* HEHotelCVCell.swift in Sources */,
 				2ACAFC5C290C062100F45B13 /* NetworkManager.swift in Sources */,
 				2ACAFC5F290C069500F45B13 /* NetworkLink.swift in Sources */,
 				2ACAFC65290C085400F45B13 /* Coordinator.swift in Sources */,
+				2ACAFC6D290C11C300F45B13 /* UIViewController + Ex.swift in Sources */,
 				2ACAFC57290C054B00F45B13 /* ViewModelType.swift in Sources */,
 				2ACAFC61290C06A700F45B13 /* NetworkError.swift in Sources */,
 				2A1511B4290BFFD6004658C8 /* AppDelegate.swift in Sources */,
