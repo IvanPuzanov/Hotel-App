@@ -8,7 +8,7 @@
 import UIKit
 import RxSwift
 
-final class HEHotelCVCell: UICollectionViewCell {
+final class HotelCVCell: UICollectionViewCell {
     
     // MARK: - Parameters
     private let disposeBag = DisposeBag()
@@ -48,16 +48,18 @@ final class HEHotelCVCell: UICollectionViewCell {
             self.hotelAddressLabel.text = hotelViewModel.address
         }
         
-        self.hotelViewModel.image.subscribe { hotelImage in
+        hotelViewModel.image.subscribe { hotelImage in
             DispatchQueue.main.async {
-                self.imageView.image = hotelImage
+                guard let hotelImage = hotelImage else { return }
+                self.imageView.image = hotelImage.imageWithInsets(insetDimen: -1)
             }
-        } onError: { _ in }.disposed(by: disposeBag)
+        } onError: { _ in }.disposed(by: self.disposeBag)
     }
     
     // MARK: -
     private func configure() {
         self.backgroundColor = .systemBackground
+        self.layer.configureWith(cornerRadius: 18, addShadow: true)
     }
     
     private func configureImageView() {

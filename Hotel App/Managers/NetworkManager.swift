@@ -33,37 +33,33 @@ class NetworkManager {
         }
     }
     
-    public func fetchImage(from urlString: String?) -> Observable<UIImage?> {
-        return Observable.create { observer in
-            guard let urlString = urlString, let url = URL(string: NetworkLink.imageLink(for: urlString)) else {
-                observer.onError(NetworkError.failURL)
-                return Disposables.create()
-            }
-            
-            // Converting urlString to type NSString
-            let cacheKey = NSString(string: urlString)
-            
-            // Checking cached image by cacheKey
-            if let image = self.cache.object(forKey: cacheKey) {
-                observer.onNext(image)
-            }
-            
-            DispatchQueue.global().async {
-                do {
-                    let imageData   = try Data(contentsOf: url)
-                    let image       = UIImage(data: imageData)
-                    
-                    observer.onNext(image)
-                    
-                    if let image = image {
-                        self.cache.setObject(image, forKey: cacheKey)
-                    }
-                } catch {
-                    observer.onError(NetworkError.failedDecode)
+    public func fetchImage(from urlString: String?, completed: @escaping (Result<UIImage?, NetworkError>) -> Void) {
+        guard let urlString = urlString, let url = URL(string: NetworkLink.imageLink(for: urlString)) else {
+            completed(.failure(.failURL))
+            return
+        }
+        
+        // Converting urlString to type NSString
+        let cacheKey = NSString(string: urlString)
+        
+        // Checking cached image by cacheKey
+        if let image = self.cache.object(forKey: cacheKey) {
+            completed(.success(image))
+        }
+        
+        DispatchQueue.global().async {
+            do {
+                let imageData   = try Data(contentsOf: url)
+                let image       = UIImage(data: imageData)
+                
+                completed(.success(image))
+                
+                if let image = image {
+                    self.cache.setObject(image, forKey: cacheKey)
                 }
+            } catch {
+                completed(.failure(.failedDecode))
             }
-            
-            return Disposables.create()
         }
     }
 }

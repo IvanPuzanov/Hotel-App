@@ -15,8 +15,15 @@ final class AppCoordinator: Coordinator {
         self.navigationController = navigationController
     }
     
-    func start() {
+    public func start() {
         let viewController = HotelsListVC(collectionViewLayout: UICollectionViewLayout())
+        viewController.coordinator = self
         navigationController.pushViewController(viewController, animated: true)
+    }
+    
+    public func showDetailedHotelVC(for hotelViewModel: HotelViewModel?) {
+        let viewController = HotelVC()
+        viewController.hotelViewModel = hotelViewModel
+        navigationController.present(viewController, animated: true)
     }
 }
