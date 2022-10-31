@@ -19,7 +19,7 @@ final class HotelVC: UIViewController {
     private let hotelImageView      = UIImageView()
     private let hotelTitleLabel     = UILabel()
     private let hotelAddressLabel   = UILabel()
-    private let hotelStarsView      = HotelStarsView()
+    private let hotelStarsView      = HAStarsView(alignment: .leading)
     
     // MARK: - Life cycle
     override func viewDidLoad() {
@@ -27,10 +27,10 @@ final class HotelVC: UIViewController {
 
         configureRootView()
         configureStackView()
-        configureImageView()
         configureHotelTitleLabel()
         configureHotelAddressLabel()
         configureHotelStarsView()
+        configureImageView()
         
         bind()
     }
@@ -42,6 +42,12 @@ final class HotelVC: UIViewController {
         DispatchQueue.main.async {
             self.hotelTitleLabel.setTitle(hotelViewModel.name)
             self.hotelAddressLabel.setTitle(hotelViewModel.address)
+            
+            guard !hotelViewModel.stars.isZero else {
+                self.hotelStarsView.isHidden = true
+                return
+            }
+            self.hotelStarsView.isHidden = false
             self.hotelStarsView.setStars(of: hotelViewModel.stars)
         }
         
@@ -71,8 +77,30 @@ final class HotelVC: UIViewController {
         ])
     }
     
+    private func configureHotelTitleLabel() {
+        self.stackView.addArrangedSubview(hotelTitleLabel)
+        
+        self.hotelTitleLabel.configureWith(fontSize: 30, fontWeight: .bold, titleColor: .label)
+        self.hotelTitleLabel.configureWith(textAlignmnet: .left, numberOfLines: 0)
+    }
+    
+    private func configureHotelAddressLabel() {
+        self.stackView.addArrangedSubview(hotelAddressLabel)
+        self.stackView.setCustomSpacing(5, after: hotelTitleLabel)
+        
+        self.hotelAddressLabel.configureWith(fontSize: 19, fontWeight: .regular, titleColor: .secondaryLabel)
+        self.hotelAddressLabel.configureWith(textAlignmnet: .left, numberOfLines: 0)
+    }
+    
+    private func configureHotelStarsView() {
+        self.stackView.addArrangedSubview(hotelStarsView)
+        self.stackView.setCustomSpacing(10, after: hotelAddressLabel)
+        self.hotelStarsView.sizeToFit()
+    }
+    
     private func configureImageView() {
         self.stackView.addArrangedSubview(hotelImageView)
+        self.stackView.setCustomSpacing(20, after: hotelStarsView)
         self.hotelImageView.translatesAutoresizingMaskIntoConstraints = false
         
         hotelImageView.contentMode      = .scaleAspectFit
@@ -83,27 +111,5 @@ final class HotelVC: UIViewController {
             hotelImageView.widthAnchor.constraint(equalTo: stackView.widthAnchor),
             hotelImageView.heightAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 9/16)
         ])
-    }
-    
-    private func configureHotelTitleLabel() {
-        self.stackView.addArrangedSubview(hotelTitleLabel)
-        self.stackView.setCustomSpacing(20, after: hotelImageView)
-        
-        self.hotelTitleLabel.configureWith(fontSize: 21, fontWeight: .medium, titleColor: .label)
-        self.hotelTitleLabel.configureWith(textAlignmnet: .center, numberOfLines: 0)
-    }
-    
-    private func configureHotelAddressLabel() {
-        self.stackView.addArrangedSubview(hotelAddressLabel)
-        self.stackView.setCustomSpacing(5, after: hotelTitleLabel)
-        
-        self.hotelAddressLabel.configureWith(fontSize: 17, fontWeight: .regular, titleColor: .secondaryLabel)
-        self.hotelAddressLabel.configureWith(textAlignmnet: .center, numberOfLines: 0)
-    }
-    
-    private func configureHotelStarsView() {
-        self.stackView.addArrangedSubview(hotelStarsView)
-        self.stackView.setCustomSpacing(10, after: hotelAddressLabel)
-        self.hotelStarsView.sizeToFit()
     }
 }

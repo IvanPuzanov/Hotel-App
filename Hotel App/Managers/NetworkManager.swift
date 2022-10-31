@@ -14,7 +14,10 @@ class NetworkManager {
     
     public func fetchData<T: Codable>(ofType: T.Type, from urlString: String) -> Observable<T> {
         return Observable.create { observer in
-            guard let url = URL(string: urlString) else { return Disposables.create() }
+            guard let url = URL(string: urlString) else {
+                observer.onError(NetworkError.failURL)
+                return Disposables.create()
+            }
 
             DispatchQueue.global(qos: .userInitiated).async {
                 do {

@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class HotelStarsView: UIView {
+final class HAStarsView: UIView {
     
     private let stackView = UIStackView()
     
@@ -15,7 +15,6 @@ final class HotelStarsView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        configure()
         configureStackView()
     }
     
@@ -34,7 +33,7 @@ final class HotelStarsView: UIView {
         guard !count.isZero else { return }
         (1...Int(count)).forEach { _ in
             let imageView           = UIImageView(frame: .init(origin: .zero, size: CGSize(width: 40, height: 40)))
-            imageView.image         = UIImage(systemName: "star.fill")
+            imageView.image         = Image.starImage
             imageView.tintColor     = .secondaryLabel
             imageView.contentMode   = .scaleAspectFit
             
@@ -43,10 +42,6 @@ final class HotelStarsView: UIView {
     }
     
     // MARK: -
-    private func configure() {
-        
-    }
-    
     private func configureStackView() {
         self.addSubview(stackView)
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -56,7 +51,7 @@ final class HotelStarsView: UIView {
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(equalTo: topAnchor),
             stackView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            stackView.centerXAnchor.constraint(equalTo: centerXAnchor)
+            stackView.leadingAnchor.constraint(equalTo: leadingAnchor)
         ])
     }
 }

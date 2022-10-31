@@ -7,7 +7,7 @@
 
 import RxSwift
 
-final class HotelsListViewModel: ViewModelType {
+final class HotelsListViewModel: ViewModel {
     
     struct Input {
         var loadHotels: Observable<Void>

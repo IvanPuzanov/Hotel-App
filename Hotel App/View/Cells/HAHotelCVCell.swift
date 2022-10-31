@@ -8,7 +8,7 @@
 import UIKit
 import RxSwift
 
-final class HotelCVCell: UICollectionViewCell {
+final class HAHotelCVCell: UICollectionViewCell {
     
     // MARK: - Parameters
     private let disposeBag = DisposeBag()
@@ -21,7 +21,7 @@ final class HotelCVCell: UICollectionViewCell {
     }
     
     // MARK: - Views
-    private let imageView           = UIImageView()
+    private let hotelImageView      = UIImageView()
     private let stackView           = UIStackView()
     private let hotelTitleLabel     = UILabel()
     private let hotelAddressLabel   = UILabel()
@@ -41,6 +41,14 @@ final class HotelCVCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func prepareForReuse() {
+        DispatchQueue.main.async {
+            self.hotelImageView.image   = Image.defaultPhotoImage
+            self.hotelAddressLabel.text = nil
+            self.hotelAddressLabel.text = nil
+        }
+    }
+    
     // MARK: - Handle methods
     private func bindWith(_ hotelViewModel: HotelViewModel) {
         DispatchQueue.main.async {
@@ -48,12 +56,12 @@ final class HotelCVCell: UICollectionViewCell {
             self.hotelAddressLabel.text = hotelViewModel.address
         }
         
-        hotelViewModel.image.subscribe { hotelImage in
+        self.hotelViewModel.image.subscribe { hotelImage in
             DispatchQueue.main.async {
                 guard let hotelImage = hotelImage else { return }
-                self.imageView.image = hotelImage.imageWithInsets(insetDimen: -1)
+                self.hotelImageView.image = hotelImage
             }
-        } onError: { _ in }.disposed(by: self.disposeBag)
+        } onError: { _ in }.disposed(by: disposeBag)
     }
     
     // MARK: -
@@ -63,18 +71,18 @@ final class HotelCVCell: UICollectionViewCell {
     }
     
     private func configureImageView() {
-        self.addSubview(imageView)
-        imageView.translatesAutoresizingMaskIntoConstraints = false
+        self.addSubview(hotelImageView)
+        hotelImageView.translatesAutoresizingMaskIntoConstraints = false
         
-        imageView.contentMode   = .scaleAspectFit
-        imageView.image         = UIImage(systemName: "photo.fill")
-        imageView.tintColor     = .quaternarySystemFill
+        hotelImageView.contentMode   = .scaleAspectFit
+        hotelImageView.image         = Image.defaultPhotoImage
+        hotelImageView.tintColor     = .quaternarySystemFill
         
         NSLayoutConstraint.activate([
-            imageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15),
-            imageView.centerYAnchor.constraint(equalTo: centerYAnchor),
-            imageView.heightAnchor.constraint(equalToConstant: 100),
-            imageView.widthAnchor.constraint(equalToConstant: 100)
+            hotelImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15),
+            hotelImageView.centerYAnchor.constraint(equalTo: centerYAnchor),
+            hotelImageView.heightAnchor.constraint(equalToConstant: 100),
+            hotelImageView.widthAnchor.constraint(equalToConstant: 100)
         ])
     }
     
@@ -86,8 +94,8 @@ final class HotelCVCell: UICollectionViewCell {
         stackView.isUserInteractionEnabled = false
         
         NSLayoutConstraint.activate([
-            stackView.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 15),
-            stackView.centerYAnchor.constraint(equalTo: imageView.centerYAnchor),
+            stackView.leadingAnchor.constraint(equalTo: hotelImageView.trailingAnchor, constant: 15),
+            stackView.centerYAnchor.constraint(equalTo: hotelImageView.centerYAnchor),
             stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -15)
         ])
     }

@@ -16,36 +16,55 @@ final class HotelViewModel {
     public var name: String
     public var address: String
     public var stars: Float
+    public var distance: Float
     public var image: BehaviorRelay<UIImage?> = .init(value: nil)
+    public var availableSuites: [Int]
     
     // MARK: - Initialization
     init(hotel: Hotel) {
-        self.name       = hotel.name
-        self.address    = hotel.address
-        self.stars      = hotel.stars
+        self.name               = hotel.name
+        self.address            = hotel.address
+        self.stars              = hotel.stars
+        self.distance           = hotel.distance
+        self.availableSuites    = hotel.suitesAvailability.components(separatedBy: ":").map { Int($0) ?? 0 }
         
         fetchImage(for: hotel)
     }
     
+    // MARK: - Handle methods
+    /// Fetching image for viewModel
+    /// - Parameter hotel: Hotel object
     private func fetchImage(for hotel: Hotel) {
         let networkManager  = NetworkManager()
         let detailedHotel   = networkManager.fetchData(ofType: Hotel.self, from: NetworkLink.hotelLink(for: hotel.id))
         
-        detailedHotel.subscribe { event in
-            switch event {
-            case .next(let hotelValue):
-                networkManager.fetchImage(from: hotelValue.image) { result in
-                    switch result {
-                    case .success(let hotelImage):
-                        self.image.accept(hotelImage)
-                    default:
+        detailedHotel.subscribe { hotelValue in
+            networkManager.fetchImage(from: hotelValue.image) { result in
+                switch result {
+                case .success(let hotelImage):
+                    DispatchQueue.main.async {
+                        self.image.accept(hotelImage?.imageWithInsets(insetDimen: -1))
+                    }
+                default:
+                    DispatchQueue.main.async {
                         self.image.accept(nil)
                     }
                 }
-            default:
-                break
             }
-        }.disposed(by: self.disposeBag)
+        } onError: { _ in }.disposed(by: self.disposeBag)
+    }
+    
+    /// Preparing suites data
+    /// - Parameter suites: Suites string
+    /// - Returns: Arrays of suites
+    private func transformSuites(_ suites: String) -> [Int] {
+        var result = [Int]()
+        suites.components(separatedBy: ":").forEach {
+            if let number = Int($0) {
+                result.append(number)
+            }
+        }
+        return result
     }
     
 }
