@@ -7,6 +7,7 @@
 
 import UIKit
 import RxSwift
+import MapKit
 
 final class HotelVC: UIViewController {
 
@@ -15,22 +16,36 @@ final class HotelVC: UIViewController {
     public var hotelViewModel: HotelViewModel?
     
     // MARK: - Views
+    private let scrollView          = UIScrollView()
+    private let contentView         = UIView()
     private let stackView           = UIStackView()
     private let hotelImageView      = UIImageView()
     private let hotelTitleLabel     = UILabel()
     private let hotelAddressLabel   = UILabel()
     private let hotelStarsView      = HAStarsView(alignment: .leading)
+    private let detailsLabel        = UILabel()
+    private let detailsStackView    = UIStackView()
+    private let hotelDistannceView  = UIButton()
+    private let hotelSuitesView     = UIButton()
+    private let mapView             = MKMapView()
     
     // MARK: - Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
 
         configureRootView()
+        configureSrollView()
+        configureContentView()
         configureStackView()
         configureHotelTitleLabel()
         configureHotelAddressLabel()
         configureHotelStarsView()
         configureImageView()
+        configureDetailsLabel()
+        configureDetailsStackView()
+        configureHotelDistanceView()
+        configureHotelSuitesView()
+        configureMapView()
         
         bind()
     }
@@ -42,6 +57,14 @@ final class HotelVC: UIViewController {
         DispatchQueue.main.async {
             self.hotelTitleLabel.setTitle(hotelViewModel.name)
             self.hotelAddressLabel.setTitle(hotelViewModel.address)
+            self.hotelDistannceView.setTitle(String(hotelViewModel.distance), for: .normal)
+            self.hotelSuitesView.setTitle(String(hotelViewModel.availableSuites.count), for: .normal)
+            
+            if let longitude = hotelViewModel.longitude, let latitude = hotelViewModel.latitude {
+                self.mapView.setPinUsingMKAnnotation(title: hotelViewModel.name,
+                                                     location: .init(latitude: latitude,
+                                                                     longitude: longitude))
+            }
             
             guard !hotelViewModel.stars.isZero else {
                 self.hotelStarsView.isHidden = true
@@ -55,6 +78,7 @@ final class HotelVC: UIViewController {
             DispatchQueue.main.async {
                 guard let hotelImage = hotelImage else { return }
                 self.hotelImageView.image = hotelImage.imageWithInsets(insetDimen: -1)
+                self.hotelImageView.contentMode = .scaleAspectFill
             }
         } onError: { _ in }.disposed(by: self.disposeBag)
     }
@@ -64,16 +88,38 @@ final class HotelVC: UIViewController {
         self.view.backgroundColor = .systemBackground
     }
     
+    private func configureSrollView() {
+        self.view.addSubview(scrollView)
+        self.scrollView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            scrollView.topAnchor.constraint(equalTo: view.topAnchor),
+            scrollView.widthAnchor.constraint(equalTo: view.widthAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+    }
+    
+    private func configureContentView() {
+        self.scrollView.addSubview(contentView)
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+            contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor)
+        ])
+    }
+    
     private func configureStackView() {
-        self.view.addSubview(stackView)
+        self.contentView.addSubview(stackView)
         stackView.translatesAutoresizingMaskIntoConstraints = false
         
         stackView.axis = .vertical
         
         NSLayoutConstraint.activate([
-            stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            stackView.topAnchor.constraint(equalTo: view.topAnchor, constant: 60),
-            stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16)
+            stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            stackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 60),
+            stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16)
         ])
     }
     
@@ -105,11 +151,69 @@ final class HotelVC: UIViewController {
         
         hotelImageView.contentMode      = .scaleAspectFit
         hotelImageView.tintColor        = .quaternarySystemFill
-        hotelImageView.image            = UIImage(systemName: "photo.fill")
+        hotelImageView.image            = Project.Image.defaultPhotoImage
+        hotelImageView.layer.configureWith(cornerRadius: 18)
+        hotelImageView.clipsToBounds = true
         
         NSLayoutConstraint.activate([
             hotelImageView.widthAnchor.constraint(equalTo: stackView.widthAnchor),
             hotelImageView.heightAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 9/16)
+        ])
+    }
+    
+    private func configureDetailsLabel() {
+        self.stackView.setCustomSpacing(40, after: hotelImageView)
+        self.stackView.addArrangedSubview(detailsLabel)
+        
+        self.detailsLabel.configureWith(fontSize: 18, fontWeight: .semibold, titleColor: .label)
+        self.detailsLabel.configureWith(textAlignmnet: .left, numberOfLines: 1)
+        self.detailsLabel.text = Project.Strings.extraInfoTitle
+    }
+    
+    private func configureDetailsStackView() {
+        self.contentView.addSubview(detailsStackView)
+        detailsStackView.translatesAutoresizingMaskIntoConstraints = false
+        
+        detailsStackView.spacing = 15
+        
+        NSLayoutConstraint.activate([
+            detailsStackView.leadingAnchor.constraint(equalTo: stackView.leadingAnchor),
+            detailsStackView.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 15),
+            detailsStackView.trailingAnchor.constraint(lessThanOrEqualTo: stackView.trailingAnchor)
+        ])
+    }
+    
+    private func configureHotelDistanceView() {
+        self.detailsStackView.addArrangedSubview(hotelDistannceView)
+        hotelDistannceView.setImage(Project.Image.mappinnImage, for: .normal)
+        hotelDistannceView.imageView?.tintColor = .systemOrange
+        hotelDistannceView.layer.configureWith(cornerRadius: 15)
+        hotelDistannceView.configureWith(fontSize: 15, fontWeight: .regular, color: .systemGray)
+        hotelDistannceView.setInsets(forContentPadding: UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10), imageTitlePadding: 7)
+    }
+    
+    private func configureHotelSuitesView() {
+        self.detailsStackView.addArrangedSubview(hotelSuitesView)
+        hotelSuitesView.setImage(Project.Image.bedImage, for: .normal)
+        hotelSuitesView.imageView?.tintColor = .systemOrange
+        hotelSuitesView.setInsets(forContentPadding: UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10), imageTitlePadding: 7)
+        hotelSuitesView.configureWith(fontSize: 15, fontWeight: .regular, color: .systemGray2)
+        hotelSuitesView.layer.configureWith(cornerRadius: 15)
+    }
+    
+    private func configureMapView() {
+        self.contentView.addSubview(mapView)
+        self.mapView.translatesAutoresizingMaskIntoConstraints = false
+        
+        mapView.layer.configureWith(cornerRadius: 18)
+        mapView.mapType = .standard
+        
+        NSLayoutConstraint.activate([
+            mapView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            mapView.topAnchor.constraint(equalTo: detailsStackView.bottomAnchor, constant: 16),
+            mapView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            mapView.heightAnchor.constraint(equalToConstant: 220),
+            mapView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16)
         ])
     }
 }

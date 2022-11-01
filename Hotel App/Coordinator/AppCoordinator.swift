@@ -24,6 +24,15 @@ final class AppCoordinator: Coordinator {
     public func showDetailedHotelVC(for hotelViewModel: HotelViewModel?) {
         let viewController = HotelVC()
         viewController.hotelViewModel = hotelViewModel
-        navigationController.present(viewController, animated: true)
+        DispatchQueue.main.async {
+            self.navigationController.present(viewController, animated: true)
+        }
+    }
+    
+    public func presentErrorAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        DispatchQueue.main.async {
+            self.navigationController.present(alert, animated: true)
+        }
     }
 }

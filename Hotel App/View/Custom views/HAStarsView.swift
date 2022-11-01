@@ -33,7 +33,7 @@ final class HAStarsView: UIView {
         guard !count.isZero else { return }
         (1...Int(count)).forEach { _ in
             let imageView           = UIImageView(frame: .init(origin: .zero, size: CGSize(width: 40, height: 40)))
-            imageView.image         = Image.starImage
+            imageView.image         = Project.Image.starImage
             imageView.tintColor     = .secondaryLabel
             imageView.contentMode   = .scaleAspectFit
             

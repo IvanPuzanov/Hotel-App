@@ -27,13 +27,12 @@
 		2ACAFC71290C1F0A00F45B13 /* UIImage + Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ACAFC70290C1F0A00F45B13 /* UIImage + Ex.swift */; };
 		2ACAFC74290C22A500F45B13 /* HAStarsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ACAFC73290C22A500F45B13 /* HAStarsView.swift */; };
 		2ACAFC76290C269A00F45B13 /* CALayer + Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ACAFC75290C269A00F45B13 /* CALayer + Ex.swift */; };
-		2ACAFC78290C286500F45B13 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ACAFC77290C286500F45B13 /* Color.swift */; };
 		2ACAFC7C290C314300F45B13 /* HADetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ACAFC7B290C314300F45B13 /* HADetailsView.swift */; };
 		2ACAFC82290C591C00F45B13 /* HAButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ACAFC81290C591C00F45B13 /* HAButton.swift */; };
-		2ACAFC84290C597E00F45B13 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ACAFC83290C597E00F45B13 /* Image.swift */; };
-		2ACAFC86290C59CF00F45B13 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ACAFC85290C59CF00F45B13 /* Strings.swift */; };
+		2ACAFC86290C59CF00F45B13 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ACAFC85290C59CF00F45B13 /* Project.swift */; };
 		2ACAFC88290C98A900F45B13 /* UIButton + Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ACAFC87290C98A900F45B13 /* UIButton + Ex.swift */; };
 		2ACAFC8A291001CF00F45B13 /* SortType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ACAFC89291001CF00F45B13 /* SortType.swift */; };
+		2ACAFC8C29118CB400F45B13 /* MKMapView + Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ACAFC8B29118CB400F45B13 /* MKMapView + Ex.swift */; };
 		A9C8B509EAB43BC3A3438363 /* Pods_Hotel_App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E2C6B53D624FCC3C038BC55 /* Pods_Hotel_App.framework */; };
 /* End PBXBuildFile section */
 
@@ -61,13 +60,12 @@
 		2ACAFC70290C1F0A00F45B13 /* UIImage + Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage + Ex.swift"; sourceTree = "<group>"; };
 		2ACAFC73290C22A500F45B13 /* HAStarsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HAStarsView.swift; sourceTree = "<group>"; };
 		2ACAFC75290C269A00F45B13 /* CALayer + Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CALayer + Ex.swift"; sourceTree = "<group>"; };
-		2ACAFC77290C286500F45B13 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		2ACAFC7B290C314300F45B13 /* HADetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HADetailsView.swift; sourceTree = "<group>"; };
 		2ACAFC81290C591C00F45B13 /* HAButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HAButton.swift; sourceTree = "<group>"; };
-		2ACAFC83290C597E00F45B13 /* Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
-		2ACAFC85290C59CF00F45B13 /* Strings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
+		2ACAFC85290C59CF00F45B13 /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
 		2ACAFC87290C98A900F45B13 /* UIButton + Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton + Ex.swift"; sourceTree = "<group>"; };
 		2ACAFC89291001CF00F45B13 /* SortType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortType.swift; sourceTree = "<group>"; };
+		2ACAFC8B29118CB400F45B13 /* MKMapView + Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MKMapView + Ex.swift"; sourceTree = "<group>"; };
 		3C656911A9ABF076EE295167 /* Pods-Hotel App.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hotel App.debug.xcconfig"; path = "Target Support Files/Pods-Hotel App/Pods-Hotel App.debug.xcconfig"; sourceTree = "<group>"; };
 		A0659E649A294114A963E71B /* Pods-Hotel App.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hotel App.release.xcconfig"; path = "Target Support Files/Pods-Hotel App/Pods-Hotel App.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -187,9 +185,7 @@
 			children = (
 				2ACAFC5E290C069500F45B13 /* NetworkLink.swift */,
 				2ACAFC60290C06A700F45B13 /* NetworkError.swift */,
-				2ACAFC77290C286500F45B13 /* Color.swift */,
-				2ACAFC83290C597E00F45B13 /* Image.swift */,
-				2ACAFC85290C59CF00F45B13 /* Strings.swift */,
+				2ACAFC85290C59CF00F45B13 /* Project.swift */,
 				2ACAFC89291001CF00F45B13 /* SortType.swift */,
 			);
 			path = Constants;
@@ -211,6 +207,7 @@
 				2ACAFC70290C1F0A00F45B13 /* UIImage + Ex.swift */,
 				2ACAFC75290C269A00F45B13 /* CALayer + Ex.swift */,
 				2ACAFC87290C98A900F45B13 /* UIButton + Ex.swift */,
+				2ACAFC8B29118CB400F45B13 /* MKMapView + Ex.swift */,
 			);
 			path = Extentions;
 			sourceTree = "<group>";
@@ -375,23 +372,22 @@
 			buildActionMask = 2147483647;
 			files = (
 				2ACAFC74290C22A500F45B13 /* HAStarsView.swift in Sources */,
-				2ACAFC84290C597E00F45B13 /* Image.swift in Sources */,
 				2ACAFC82290C591C00F45B13 /* HAButton.swift in Sources */,
 				2ACAFC54290C053900F45B13 /* HotelsListViewModel.swift in Sources */,
 				2ACAFC8A291001CF00F45B13 /* SortType.swift in Sources */,
 				2ACAFC6B290C119000F45B13 /* UILabel + Ex.swift in Sources */,
 				2ACAFC4E290C025800F45B13 /* Hotel.swift in Sources */,
 				2ACAFC63290C084B00F45B13 /* AppCoordinator.swift in Sources */,
-				2ACAFC86290C59CF00F45B13 /* Strings.swift in Sources */,
+				2ACAFC86290C59CF00F45B13 /* Project.swift in Sources */,
 				2ACAFC52290C04E500F45B13 /* HotelsListVC.swift in Sources */,
 				2ACAFC68290C0A2B00F45B13 /* HAHotelCVCell.swift in Sources */,
 				2ACAFC71290C1F0A00F45B13 /* UIImage + Ex.swift in Sources */,
 				2ACAFC5C290C062100F45B13 /* NetworkManager.swift in Sources */,
 				2ACAFC5F290C069500F45B13 /* NetworkLink.swift in Sources */,
 				2ACAFC76290C269A00F45B13 /* CALayer + Ex.swift in Sources */,
-				2ACAFC78290C286500F45B13 /* Color.swift in Sources */,
 				2ACAFC6F290C1CF300F45B13 /* HotelVC.swift in Sources */,
 				2ACAFC65290C085400F45B13 /* Coordinator.swift in Sources */,
+				2ACAFC8C29118CB400F45B13 /* MKMapView + Ex.swift in Sources */,
 				2ACAFC6D290C11C300F45B13 /* UIViewController + Ex.swift in Sources */,
 				2ACAFC88290C98A900F45B13 /* UIButton + Ex.swift in Sources */,
 				2ACAFC57290C054B00F45B13 /* ViewModel.swift in Sources */,
@@ -543,8 +539,8 @@
 				INFOPLIST_FILE = "Hotel App/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -571,8 +567,8 @@
 				INFOPLIST_FILE = "Hotel App/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

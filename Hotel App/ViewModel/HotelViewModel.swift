@@ -19,6 +19,8 @@ final class HotelViewModel {
     public var distance: Float
     public var image: BehaviorRelay<UIImage?> = .init(value: nil)
     public var availableSuites: [Int]
+    public var longitude: Double?
+    public var latitude: Double?
     
     // MARK: - Initialization
     init(hotel: Hotel) {
@@ -27,6 +29,8 @@ final class HotelViewModel {
         self.stars              = hotel.stars
         self.distance           = hotel.distance
         self.availableSuites    = hotel.suitesAvailability.components(separatedBy: ":").map { Int($0) ?? 0 }
+        self.longitude          = hotel.lon
+        self.latitude           = hotel.lat
         
         fetchImage(for: hotel)
     }
@@ -39,6 +43,9 @@ final class HotelViewModel {
         let detailedHotel   = networkManager.fetchData(ofType: Hotel.self, from: NetworkLink.hotelLink(for: hotel.id))
         
         detailedHotel.subscribe { hotelValue in
+            self.longitude = hotelValue.lon
+            self.latitude  = hotelValue.lat
+            
             networkManager.fetchImage(from: hotelValue.image) { result in
                 switch result {
                 case .success(let hotelImage):

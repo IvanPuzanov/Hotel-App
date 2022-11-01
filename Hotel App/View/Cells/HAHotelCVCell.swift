@@ -23,8 +23,12 @@ final class HAHotelCVCell: UICollectionViewCell {
     // MARK: - Views
     private let hotelImageView      = UIImageView()
     private let stackView           = UIStackView()
+    private let titlesStackView     = UIStackView()
     private let hotelTitleLabel     = UILabel()
     private let hotelAddressLabel   = UILabel()
+    private let detailsStackView    = UIStackView()
+    private let hotelDistannceView  = UIButton()
+    private let hotelSuitesView     = UIButton()
     
     // MARK: -
     override init(frame: CGRect) {
@@ -35,6 +39,9 @@ final class HAHotelCVCell: UICollectionViewCell {
         configureStackView()
         configureHotelTitleLabel()
         configureHotelAddressLabel()
+        configureDetailsStackView()
+        configureHotelDistanceView()
+        configureHotelSuitesView()
     }
     
     required init?(coder: NSCoder) {
@@ -43,7 +50,7 @@ final class HAHotelCVCell: UICollectionViewCell {
     
     override func prepareForReuse() {
         DispatchQueue.main.async {
-            self.hotelImageView.image   = Image.defaultPhotoImage
+            self.hotelImageView.image   = Project.Image.defaultPhotoImage
             self.hotelAddressLabel.text = nil
             self.hotelAddressLabel.text = nil
         }
@@ -54,6 +61,8 @@ final class HAHotelCVCell: UICollectionViewCell {
         DispatchQueue.main.async {
             self.hotelTitleLabel.text   = hotelViewModel.name
             self.hotelAddressLabel.text = hotelViewModel.address
+            self.hotelDistannceView.setTitle(String(hotelViewModel.distance), for: .normal)
+            self.hotelSuitesView.setTitle(String(hotelViewModel.availableSuites.count), for: .normal)
         }
         
         self.hotelViewModel.image.subscribe { hotelImage in
@@ -66,7 +75,7 @@ final class HAHotelCVCell: UICollectionViewCell {
     
     // MARK: -
     private func configure() {
-        self.backgroundColor = .systemBackground
+        self.backgroundColor = Project.Color.cellBackground
         self.layer.configureWith(cornerRadius: 18, addShadow: true)
     }
     
@@ -75,7 +84,7 @@ final class HAHotelCVCell: UICollectionViewCell {
         hotelImageView.translatesAutoresizingMaskIntoConstraints = false
         
         hotelImageView.contentMode   = .scaleAspectFit
-        hotelImageView.image         = Image.defaultPhotoImage
+        hotelImageView.image         = Project.Image.defaultPhotoImage
         hotelImageView.tintColor     = .quaternarySystemFill
         
         NSLayoutConstraint.activate([
@@ -91,24 +100,62 @@ final class HAHotelCVCell: UICollectionViewCell {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         
         stackView.axis = .vertical
+        stackView.alignment = .top
         stackView.isUserInteractionEnabled = false
         
         NSLayoutConstraint.activate([
             stackView.leadingAnchor.constraint(equalTo: hotelImageView.trailingAnchor, constant: 15),
-            stackView.centerYAnchor.constraint(equalTo: hotelImageView.centerYAnchor),
+            stackView.topAnchor.constraint(equalTo: topAnchor, constant: 15),
             stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -15)
         ])
     }
     
     private func configureHotelTitleLabel() {
-        self.stackView.addArrangedSubview(hotelTitleLabel)
-        hotelTitleLabel.configureWith(fontSize: 16, fontWeight: .regular, titleColor: .label)
+        stackView.addArrangedSubview(hotelTitleLabel)
+        
+        hotelTitleLabel.configureWith(fontSize: 16, fontWeight: .medium, titleColor: .label)
         hotelTitleLabel.configureWith(numberOfLines: 2)
     }
     
     private func configureHotelAddressLabel() {
-        self.stackView.addArrangedSubview(hotelAddressLabel)
+        stackView.addArrangedSubview(hotelAddressLabel)
+        stackView.setCustomSpacing(50, after: hotelAddressLabel)
+        
         hotelAddressLabel.configureWith(fontSize: 15, fontWeight: .regular, titleColor: .secondaryLabel)
         hotelAddressLabel.configureWith(textAlignmnet: .left, numberOfLines: 2)
+    }
+    
+    private func configureDetailsStackView() {
+        self.addSubview(detailsStackView)
+        detailsStackView.translatesAutoresizingMaskIntoConstraints = false
+        
+        detailsStackView.axis = .horizontal
+        detailsStackView.spacing = 15
+        detailsStackView.isUserInteractionEnabled = false
+        
+        NSLayoutConstraint.activate([
+            detailsStackView.leadingAnchor.constraint(equalTo: hotelImageView.trailingAnchor, constant: 15),
+            detailsStackView.topAnchor.constraint(greaterThanOrEqualTo: stackView.bottomAnchor, constant: 10),
+            detailsStackView.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor, constant: -15),
+            detailsStackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -15)
+        ])
+    }
+    
+    private func configureHotelDistanceView() {
+        self.detailsStackView.addArrangedSubview(hotelDistannceView)
+        hotelDistannceView.setImage(Project.Image.mappinnImage, for: .normal)
+        hotelDistannceView.imageView?.tintColor = .systemOrange
+        hotelDistannceView.layer.configureWith(cornerRadius: 15)
+        hotelDistannceView.configureWith(fontSize: 15, fontWeight: .regular, color: .systemGray)
+        hotelDistannceView.setInsets(forContentPadding: UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10), imageTitlePadding: 7)
+    }
+    
+    private func configureHotelSuitesView() {
+        self.detailsStackView.addArrangedSubview(hotelSuitesView)
+        hotelSuitesView.setImage(Project.Image.bedImage, for: .normal)
+        hotelSuitesView.imageView?.tintColor = .systemOrange
+        hotelSuitesView.setInsets(forContentPadding: UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10), imageTitlePadding: 7)
+        hotelSuitesView.configureWith(fontSize: 15, fontWeight: .regular, color: .systemGray2)
+        hotelSuitesView.layer.configureWith(cornerRadius: 15)
     }
 }

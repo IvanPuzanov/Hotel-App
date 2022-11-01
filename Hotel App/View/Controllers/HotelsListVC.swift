@@ -50,10 +50,7 @@ final class HotelsListVC: UICollectionViewController {
             .subscribe { hotels in
                 self.updateData(with: hotels)
             } onError: { error in
-                let alert = UIAlertController(title: Strings.networkErrorTitle, message: Strings.networkErrorMesssage, preferredStyle: .alert)
-                DispatchQueue.main.async {
-                    self.present(alert, animated: true)
-                }
+                self.coordinator?.presentErrorAlert(title: Project.Strings.networkErrorTitle, message: Project.Strings.networkErrorMesssage)
             }
             .disposed(by: self.disposeBag)
     }
@@ -94,7 +91,7 @@ final class HotelsListVC: UICollectionViewController {
     
     // MARK: -
     private func configure() {
-        self.title = Strings.hotelListControllerTitle
+        self.title = Project.Strings.hotelListControllerTitle
         self.navigationController?.navigationBar.prefersLargeTitles = true
         
         self.collectionView.register(HAHotelCVCell.self, forCellWithReuseIdentifier: HAHotelCVCell.cellID)
@@ -103,10 +100,10 @@ final class HotelsListVC: UICollectionViewController {
     private func configureSortButton() {
         var menuItems: [UIAction] {
             return [
-                UIAction(title: Strings.sortTitle(by: .byDistance), image: Image.mappinnImage, handler: { _ in
+                UIAction(title: Project.Strings.sortTitle(by: .byDistance), image: Project.Image.mappinnImage, handler: { _ in
                     self.sortHotels(.byDistance)
                 }),
-                UIAction(title: Strings.sortTitle(by: .bySuites), image: Image.bedImage, handler: { _ in
+                UIAction(title: Project.Strings.sortTitle(by: .bySuites), image: Project.Image.bedImage, handler: { _ in
                     self.sortHotels(.bySuites)
                 })
             ]
@@ -124,19 +121,22 @@ final class HotelsListVC: UICollectionViewController {
     
     private func configureLayout() {
         hotelsCollectionLayout = UICollectionViewCompositionalLayout(sectionProvider: { section, _ in
-            let item = NSCollectionLayoutItem(layoutSize: .init(widthDimension: .fractionalWidth(1),
-                                                                heightDimension: .absolute(130)))
-            item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 16, bottom: 20, trailing: 16)
-            let group = NSCollectionLayoutGroup.vertical(layoutSize: .init(widthDimension: .fractionalWidth(1),
-                                                                           heightDimension: .absolute(130)),
-                                                         subitems: [item])
+            let itemSize    = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .estimated(50))
+            let item        = NSCollectionLayoutItem(layoutSize: itemSize)
+
+            let groupSize   = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .estimated(50))
+            let group       = NSCollectionLayoutGroup.vertical(layoutSize: groupSize,
+                                                               subitems: [item])
+            group.edgeSpacing = NSCollectionLayoutEdgeSpacing(leading: .none, top: .fixed(4),
+                                                              trailing: .none, bottom: .fixed(4))
+            
             let section = NSCollectionLayoutSection(group: group)
-            section.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 0, bottom: 0, trailing: 0)
+            section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16)
         
             return section
         })
         
-        self.collectionView.setCollectionViewLayout(hotelsCollectionLayout, animated: false)
+        self.collectionView.setCollectionViewLayout(hotelsCollectionLayout, animated: true)
     }
     
     private func configureHotelsDataSource() {
