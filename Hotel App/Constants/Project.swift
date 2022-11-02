@@ -25,6 +25,7 @@ enum Project {
         static let networkErrorTitle        = "Что-то пошло не так"
         static let networkErrorMesssage     = "Ошибка при получении данных"
         static let extraInfoTitle           = "Дополнительная информация"
+        static let sortTitle                = "Сортировать"
         
         static func sortTitle(by sortType: SortType) -> String {
             switch sortType {

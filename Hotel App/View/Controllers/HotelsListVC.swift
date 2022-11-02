@@ -23,7 +23,7 @@ final class HotelsListVC: UICollectionViewController {
     private var hotelsDataSource: UICollectionViewDiffableDataSource<HotelSection, HotelViewModel>!
     private var hotelsCollectionLayout: UICollectionViewCompositionalLayout!
     
-    private let sortButton = UIBarButtonItem(title: "Сортировать", menu: nil)
+    private let sortButton = UIBarButtonItem(title: Project.Strings.sortTitle, menu: nil)
     
     // MARK: -
     override func viewDidLoad() {
@@ -36,7 +36,7 @@ final class HotelsListVC: UICollectionViewController {
         
         bind()
         handleSelection()
-        showLoadingIndicator()
+        view.showLoadingIndicator()
     }
     
     // MARK: -
@@ -49,7 +49,7 @@ final class HotelsListVC: UICollectionViewController {
             .hotels
             .subscribe { hotels in
                 self.updateData(with: hotels)
-            } onError: { error in
+            } onError: { _ in
                 self.coordinator?.presentErrorAlert(title: Project.Strings.networkErrorTitle, message: Project.Strings.networkErrorMesssage)
             }
             .disposed(by: self.disposeBag)
@@ -69,8 +69,10 @@ final class HotelsListVC: UICollectionViewController {
         snapshot.appendItems(items, toSection: .main)
         
         DispatchQueue.main.async {
-            self.hotelsDataSource.apply(snapshot, animatingDifferences: true)
-            self.dismissLoadingIndicator()
+            UIView.animate(withDuration: 0.7, delay: 0, usingSpringWithDamping: 0.85, initialSpringVelocity: 0.9, options: [.allowUserInteraction, .curveEaseOut]) {
+                self.hotelsDataSource.apply(snapshot, animatingDifferences: true)
+            }
+            self.view.dismissLoadingIndicator()
         }
     }
     
@@ -110,21 +112,21 @@ final class HotelsListVC: UICollectionViewController {
         }
 
         var sortMenu: UIMenu {
-            return UIMenu(title: "Сортировать", image: nil, children: menuItems)
+            return UIMenu(title: Project.Strings.sortTitle, image: nil, children: menuItems)
         }
         
         sortButton.menu = sortMenu
         
         self.navigationItem.rightBarButtonItem = sortButton
-        self.navigationItem.rightBarButtonItem?.tintColor = .systemOrange
+        self.navigationItem.rightBarButtonItem?.tintColor = .secondaryLabel
     }
     
     private func configureLayout() {
         hotelsCollectionLayout = UICollectionViewCompositionalLayout(sectionProvider: { section, _ in
-            let itemSize    = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .estimated(50))
+            let itemSize    = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .estimated(10))
             let item        = NSCollectionLayoutItem(layoutSize: itemSize)
 
-            let groupSize   = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .estimated(50))
+            let groupSize   = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .estimated(10))
             let group       = NSCollectionLayoutGroup.vertical(layoutSize: groupSize,
                                                                subitems: [item])
             group.edgeSpacing = NSCollectionLayoutEdgeSpacing(leading: .none, top: .fixed(4),

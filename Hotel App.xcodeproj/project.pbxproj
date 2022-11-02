@@ -22,7 +22,7 @@
 		2ACAFC65290C085400F45B13 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ACAFC64290C085400F45B13 /* Coordinator.swift */; };
 		2ACAFC68290C0A2B00F45B13 /* HAHotelCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ACAFC67290C0A2B00F45B13 /* HAHotelCVCell.swift */; };
 		2ACAFC6B290C119000F45B13 /* UILabel + Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ACAFC6A290C119000F45B13 /* UILabel + Ex.swift */; };
-		2ACAFC6D290C11C300F45B13 /* UIViewController + Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ACAFC6C290C11C300F45B13 /* UIViewController + Ex.swift */; };
+		2ACAFC6D290C11C300F45B13 /* UIView + Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ACAFC6C290C11C300F45B13 /* UIView + Ex.swift */; };
 		2ACAFC6F290C1CF300F45B13 /* HotelVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ACAFC6E290C1CF300F45B13 /* HotelVC.swift */; };
 		2ACAFC71290C1F0A00F45B13 /* UIImage + Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ACAFC70290C1F0A00F45B13 /* UIImage + Ex.swift */; };
 		2ACAFC74290C22A500F45B13 /* HAStarsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ACAFC73290C22A500F45B13 /* HAStarsView.swift */; };
@@ -55,7 +55,7 @@
 		2ACAFC64290C085400F45B13 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		2ACAFC67290C0A2B00F45B13 /* HAHotelCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HAHotelCVCell.swift; sourceTree = "<group>"; };
 		2ACAFC6A290C119000F45B13 /* UILabel + Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel + Ex.swift"; sourceTree = "<group>"; };
-		2ACAFC6C290C11C300F45B13 /* UIViewController + Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController + Ex.swift"; sourceTree = "<group>"; };
+		2ACAFC6C290C11C300F45B13 /* UIView + Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView + Ex.swift"; sourceTree = "<group>"; };
 		2ACAFC6E290C1CF300F45B13 /* HotelVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotelVC.swift; sourceTree = "<group>"; };
 		2ACAFC70290C1F0A00F45B13 /* UIImage + Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage + Ex.swift"; sourceTree = "<group>"; };
 		2ACAFC73290C22A500F45B13 /* HAStarsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HAStarsView.swift; sourceTree = "<group>"; };
@@ -203,7 +203,7 @@
 			isa = PBXGroup;
 			children = (
 				2ACAFC6A290C119000F45B13 /* UILabel + Ex.swift */,
-				2ACAFC6C290C11C300F45B13 /* UIViewController + Ex.swift */,
+				2ACAFC6C290C11C300F45B13 /* UIView + Ex.swift */,
 				2ACAFC70290C1F0A00F45B13 /* UIImage + Ex.swift */,
 				2ACAFC75290C269A00F45B13 /* CALayer + Ex.swift */,
 				2ACAFC87290C98A900F45B13 /* UIButton + Ex.swift */,
@@ -388,7 +388,7 @@
 				2ACAFC6F290C1CF300F45B13 /* HotelVC.swift in Sources */,
 				2ACAFC65290C085400F45B13 /* Coordinator.swift in Sources */,
 				2ACAFC8C29118CB400F45B13 /* MKMapView + Ex.swift in Sources */,
-				2ACAFC6D290C11C300F45B13 /* UIViewController + Ex.swift in Sources */,
+				2ACAFC6D290C11C300F45B13 /* UIView + Ex.swift in Sources */,
 				2ACAFC88290C98A900F45B13 /* UIButton + Ex.swift in Sources */,
 				2ACAFC57290C054B00F45B13 /* ViewModel.swift in Sources */,
 				2ACAFC61290C06A700F45B13 /* NetworkError.swift in Sources */,
